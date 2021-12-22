@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Usuarios struct {
-	ID            int64   `json:"id"`
+	ID            int     `json:"id"`
 	Nombre        string  `json:"nombre"`
 	Apellido      string  `json:"apellido"`
 	Email         string  `json:"email"`
@@ -37,7 +39,40 @@ func main() {
 		if err := json.Unmarshal([]byte(jsonData), &usuarios); err != nil {
 			log.Fatal(err)
 		}
-		c.JSON(200, usuarios)
+		resultado := []Usuarios{}
+		//buscamos los query params en el contexto
+		var filterName = c.Query("nombre")
+		if filterName != "" {
+			for _, value := range usuarios {
+				if strings.Contains(value.Nombre, filterName) {
+					resultado = append(resultado, value)
+				}
+			}
+		} else {
+			resultado = usuarios
+		}
+
+		c.JSON(200, resultado)
+	})
+
+	router.GET("/Productos/:id", func(c *gin.Context) {
+
+		usuarios := []Usuarios{}
+		jsonData, _ := os.ReadFile("./usuarios.json")
+		if err := json.Unmarshal([]byte(jsonData), &usuarios); err != nil {
+			log.Fatal(err)
+		}
+		resultado := Usuarios{}
+
+		id, _ := strconv.Atoi(c.Param("id"))
+
+		for _, value := range usuarios {
+			if id == value.ID {
+				resultado = value
+			}
+		}
+
+		c.JSON(200, resultado)
 	})
 
 	// Corremos nuestro servidor sobre el puerto 8080
