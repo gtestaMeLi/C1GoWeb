@@ -1,6 +1,6 @@
 [
     {
-        "id": "12314",
+        "id": 12314,
         "nombre": "Gianni",
         "apellido": "Testa",
         "email": "gianni.testaabelar@mercadolibre.com",
@@ -10,7 +10,7 @@
         "fecha-creacion": "2021-12-13"
     },
     {
-        "id": "12315",
+        "id": 12315,
         "nombre": "Pedro",
         "apellido": "Perez",
         "email": "pperez@mercadolibre.com",
@@ -20,7 +20,7 @@
         "fecha-creacion": "2021-11-13"
     },
     {
-        "id": "12316",
+        "id": 12316,
         "nombre": "Geronimo",
         "apellido": "Lopez",
         "email": "glopez@mercadolibre.com",
