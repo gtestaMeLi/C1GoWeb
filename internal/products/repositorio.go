@@ -98,18 +98,20 @@ func (r *repository) Put(id int, prod domain.Product) (res domain.Product, err e
 func (r *repository) Delete(id int) error {
 	//extraigo los datos del archivo
 	var productos []domain.Product
+	var result []domain.Product
 	r.db.Read(&productos)
+	copy(result, productos)
 	founded := false
 	for i := range productos {
 		if productos[i].ID == id {
 			founded = true
-			productos = removeFromSlice(productos, i)
+			result = removeFromSlice(productos, i)
 		}
 	}
 	if !founded {
 		return fmt.Errorf("Producto %d no encontrado", id)
 	} else {
-		if err := r.db.Write(productos); err != nil {
+		if err := r.db.Write(result); err != nil {
 			return err
 		}
 	}
