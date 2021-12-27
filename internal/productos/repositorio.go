@@ -1,23 +1,17 @@
 package productos
 
-type Product struct {
-	ID    int     `json:"id"`
-	Name  string  `json:"nombre"`
-	Type  string  `json:"tipo"`
-	Count int     `json:"cantidad"`
-	Price float64 `json:"precio"`
-}
+import "github.com/gtestaMeLi/C1GoWeb/internal/domain"
 
-var p1 Product = Product{1, "Macbook", "pc", 100, 25000}
-var p2 Product = Product{2, "Teclado", "accesorios pc", 200, 150}
-var p3 Product = Product{3, "Monitor", "monitor", 10, 5000}
+var p1 domain.Product = domain.Product{1, "Macbook", "pc", 100, 25000}
+var p2 domain.Product = domain.Product{2, "Teclado", "accesorios pc", 200, 150}
+var p3 domain.Product = domain.Product{3, "Monitor", "monitor", 10, 5000}
 
-var productos []Product = []Product{p1, p2, p3}
+var productos []domain.Product = []domain.Product{p1, p2, p3}
 
 type Repository interface {
-	GetAll() []Product
-	Get(id int) Product
-	Post(prod Product) Product
+	GetAll() []domain.Product
+	Get(id int) domain.Product
+	Post(prod domain.Product) domain.Product
 }
 
 type repository struct{}
@@ -26,13 +20,13 @@ func NewRepository() Repository {
 	return &repository{}
 }
 
-func (r *repository) GetAll() []Product {
+func (r *repository) GetAll() []domain.Product {
 
 	return productos
 }
 
-func (r *repository) Get(id int) Product {
-	resultado := Product{}
+func (r *repository) Get(id int) domain.Product {
+	resultado := domain.Product{}
 
 	for _, value := range productos {
 		if id == value.ID {
@@ -43,7 +37,7 @@ func (r *repository) Get(id int) Product {
 	return resultado
 }
 
-func (r *repository) Post(prod Product) Product {
+func (r *repository) Post(prod domain.Product) domain.Product {
 	prod.ID = productos[len(productos)-1].ID + 1
 	productos = append(productos, prod)
 

@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gtestaMeLi/C1GoWeb/internal/domain"
 	"github.com/gtestaMeLi/C1GoWeb/internal/productos"
 )
 
@@ -42,7 +43,7 @@ func (c *Product) Post() gin.HandlerFunc {
 			return
 		}
 		//VALIDO DATOS
-		var req productos.Product
+		var req domain.Product
 		if err := ctx.ShouldBindJSON(&req); err != nil {
 			ctx.JSON(400, gin.H{
 				"error": err.Error(),
