@@ -3,13 +3,13 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gtestaMeLi/C1GoWeb/cmd/server/controlador"
-	"github.com/gtestaMeLi/C1GoWeb/internal/productos"
+	"github.com/gtestaMeLi/C1GoWeb/internal/products"
 )
 
 func main() {
 
-	repo := productos.NewRepository()
-	service := productos.NewService(repo)
+	repo := products.NewRepository()
+	service := products.NewService(repo)
 	p := controlador.NewProduct(service)
 
 	r := gin.Default()

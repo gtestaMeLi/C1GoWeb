@@ -5,14 +5,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gtestaMeLi/C1GoWeb/internal/domain"
-	"github.com/gtestaMeLi/C1GoWeb/internal/productos"
+	"github.com/gtestaMeLi/C1GoWeb/internal/products"
 )
 
 type Product struct {
-	service productos.Service
+	service products.Service
 }
 
-func NewProduct(p productos.Service) *Product {
+func NewProduct(p products.Service) *Product {
 	return &Product{
 		service: p,
 	}

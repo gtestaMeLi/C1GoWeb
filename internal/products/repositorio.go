@@ -1,4 +1,4 @@
-package productos
+package products
 
 import "github.com/gtestaMeLi/C1GoWeb/internal/domain"
 
