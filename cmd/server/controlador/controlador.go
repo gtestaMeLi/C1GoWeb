@@ -95,3 +95,24 @@ func (c *Product) Put() gin.HandlerFunc {
 		ctx.JSON(200, p)
 	}
 }
+
+func (c *Product) Delete() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		//VALIDO ID DEL HEADER
+		id, idError := strconv.Atoi(ctx.Param("id"))
+		if idError != nil {
+			ctx.JSON(400, gin.H{
+				"error": idError.Error(),
+			})
+			return
+		}
+		err := c.service.Delete(id)
+		if err != nil {
+			ctx.JSON(404, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		ctx.JSON(200, nil)
+	}
+}

@@ -7,6 +7,7 @@ type Service interface {
 	Get(id int) domain.Product
 	Post(prod domain.Product) domain.Product
 	Put(id int, prod domain.Product) (domain.Product, error)
+	Delete(id int) error
 }
 type service struct {
 	repo Repository
@@ -38,4 +39,10 @@ func (s *service) Put(id int, prod domain.Product) (res domain.Product, err erro
 	p, err := s.repo.Put(id, prod)
 
 	return p, err
+}
+
+func (s *service) Delete(id int) error {
+	err := s.repo.Delete(id)
+
+	return err
 }

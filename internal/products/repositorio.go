@@ -17,6 +17,7 @@ type Repository interface {
 	Get(id int) domain.Product
 	Post(prod domain.Product) domain.Product
 	Put(id int, prod domain.Product) (domain.Product, error)
+	Delete(id int) error
 }
 
 type repository struct{}
@@ -49,6 +50,10 @@ func (r *repository) Post(prod domain.Product) domain.Product {
 	return prod
 }
 
+func removeFromSlice(slice []domain.Product, s int) []domain.Product {
+	return append(slice[:s], slice[s+1:]...)
+}
+
 func (r *repository) Put(id int, prod domain.Product) (res domain.Product, err error) {
 
 	updated := false
@@ -63,4 +68,18 @@ func (r *repository) Put(id int, prod domain.Product) (res domain.Product, err e
 		return domain.Product{}, fmt.Errorf("Producto %d no encontrado", id)
 	}
 	return prod, nil
+}
+
+func (r *repository) Delete(id int) error {
+	founded := false
+	for i := range productos {
+		if productos[i].ID == id {
+			founded = true
+			productos = removeFromSlice(productos, i)
+		}
+	}
+	if !founded {
+		return fmt.Errorf("Producto %d no encontrado", id)
+	}
+	return nil
 }
