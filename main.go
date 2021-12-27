@@ -14,8 +14,12 @@ func main() {
 
 	r := gin.Default()
 	pr := r.Group("/Productos")
-	pr.GET("/", p.GetAll())
-	pr.GET("/:id", p.Get())
-	pr.POST("/", p.Post())
+	{
+		pr.GET("/", p.GetAll())
+		pr.GET("/:id", p.Get())
+		pr.POST("/", p.Post())
+		pr.PUT("/:id", p.Put())
+	}
+
 	r.Run()
 }

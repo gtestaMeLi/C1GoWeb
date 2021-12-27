@@ -1,6 +1,10 @@
 package products
 
-import "github.com/gtestaMeLi/C1GoWeb/internal/domain"
+import (
+	"fmt"
+
+	"github.com/gtestaMeLi/C1GoWeb/internal/domain"
+)
 
 var p1 domain.Product = domain.Product{1, "Macbook", "pc", 100, 25000}
 var p2 domain.Product = domain.Product{2, "Teclado", "accesorios pc", 200, 150}
@@ -12,6 +16,7 @@ type Repository interface {
 	GetAll() []domain.Product
 	Get(id int) domain.Product
 	Post(prod domain.Product) domain.Product
+	Put(id int, prod domain.Product) (domain.Product, error)
 }
 
 type repository struct{}
@@ -42,4 +47,20 @@ func (r *repository) Post(prod domain.Product) domain.Product {
 	productos = append(productos, prod)
 
 	return prod
+}
+
+func (r *repository) Put(id int, prod domain.Product) (res domain.Product, err error) {
+
+	updated := false
+	for i := range productos {
+		if productos[i].ID == id {
+			prod.ID = id
+			productos[i] = prod
+			updated = true
+		}
+	}
+	if !updated {
+		return domain.Product{}, fmt.Errorf("Producto %d no encontrado", id)
+	}
+	return prod, nil
 }
