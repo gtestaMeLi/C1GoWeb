@@ -1,6 +1,7 @@
 package controlador
 
 import (
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -36,7 +37,8 @@ func (c *Product) Post() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//VALIDO TOKEN
 		token := ctx.GetHeader("token")
-		if token != "111222" {
+		t := os.Getenv("TOKEN")
+		if token != t {
 			ctx.JSON(401, gin.H{
 				"error": "token inválido",
 			})
@@ -51,7 +53,14 @@ func (c *Product) Post() gin.HandlerFunc {
 			return
 		}
 
-		p := c.service.Post(req)
+		p, errPost := c.service.Post(req)
+		if errPost != nil {
+			ctx.JSON(404, gin.H{
+				"error": errPost.Error(),
+			})
+			return
+		}
+
 		ctx.JSON(200, p)
 	}
 }
@@ -60,7 +69,8 @@ func (c *Product) Put() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//VALIDO TOKEN
 		token := ctx.GetHeader("token")
-		if token != "111222" {
+		t := os.Getenv("TOKEN")
+		if token != t {
 			ctx.JSON(401, gin.H{
 				"error": "token inválido",
 			})
@@ -121,7 +131,7 @@ func (c *Product) Patch() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//VALIDO TOKEN
 		token := ctx.GetHeader("token")
-		if token != "111222" {
+		if token != os.Getenv("TOKEN") {
 			ctx.JSON(401, gin.H{
 				"error": "token inválido",
 			})

@@ -4,11 +4,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gtestaMeLi/C1GoWeb/cmd/server/controlador"
 	"github.com/gtestaMeLi/C1GoWeb/internal/products"
+	"github.com/gtestaMeLi/C1GoWeb/pkg/store"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 
-	repo := products.NewRepository()
+	_ = godotenv.Load()
+	db := store.New(store.FileType, "./products.json")
+	repo := products.NewRepository(db)
 	service := products.NewService(repo)
 	p := controlador.NewProduct(service)
 
