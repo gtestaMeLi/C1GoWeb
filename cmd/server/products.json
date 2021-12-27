@@ -1,0 +1,23 @@
+[
+ {
+  "id": 1,
+  "nombre": "Televisor LED",
+  "tipo": "pc",
+  "cantidad": 100,
+  "precio": 1580
+ },
+ {
+  "id": 2,
+  "nombre": "Teclado",
+  "tipo": "accesorios pc",
+  "cantidad": 200,
+  "precio": 150
+ },
+ {
+  "id": 3,
+  "nombre": "Monitor",
+  "tipo": "monitor",
+  "cantidad": 10,
+  "precio": 5000
+ }
+]

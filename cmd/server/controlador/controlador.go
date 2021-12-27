@@ -53,7 +53,14 @@ func (c *Product) Post() gin.HandlerFunc {
 			return
 		}
 
-		p := c.service.Post(req)
+		p, errPost := c.service.Post(req)
+		if errPost != nil {
+			ctx.JSON(404, gin.H{
+				"error": errPost.Error(),
+			})
+			return
+		}
+
 		ctx.JSON(200, p)
 	}
 }

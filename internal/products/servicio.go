@@ -5,7 +5,7 @@ import "github.com/gtestaMeLi/C1GoWeb/internal/domain"
 type Service interface {
 	GetAll() []domain.Product
 	Get(id int) domain.Product
-	Post(prod domain.Product) domain.Product
+	Post(prod domain.Product) (domain.Product, error)
 	Put(id int, prod domain.Product) (domain.Product, error)
 	Delete(id int) error
 	Patch(id int, p domain.ProductPatch) (domain.Product, error)
@@ -29,11 +29,15 @@ func (s *service) Get(id int) domain.Product {
 	return p
 }
 
-func (s *service) Post(prod domain.Product) domain.Product {
+func (s *service) Post(prod domain.Product) (domain.Product, error) {
 
-	p := s.repo.Post(prod)
+	p, err := s.repo.Post(prod)
 
-	return p
+	if err != nil {
+		return domain.Product{}, err
+	}
+
+	return p, nil
 }
 
 func (s *service) Put(id int, prod domain.Product) (res domain.Product, err error) {
