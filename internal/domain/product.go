@@ -7,3 +7,8 @@ type Product struct {
 	Count int     `json:"cantidad" binding:"required"`
 	Price float64 `json:"precio" binding:"required"`
 }
+
+type ProductPatch struct {
+	Name  string  `json:"nombre"`
+	Price float64 `json:"precio"`
+}

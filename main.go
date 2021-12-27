@@ -20,6 +20,7 @@ func main() {
 		pr.POST("/", p.Post())
 		pr.PUT("/:id", p.Put())
 		pr.DELETE("/:id", p.Delete())
+		pr.PATCH("/:id", p.Patch())
 	}
 
 	r.Run()

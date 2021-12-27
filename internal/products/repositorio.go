@@ -18,6 +18,7 @@ type Repository interface {
 	Post(prod domain.Product) domain.Product
 	Put(id int, prod domain.Product) (domain.Product, error)
 	Delete(id int) error
+	Patch(id int, p domain.ProductPatch) (domain.Product, error)
 }
 
 type repository struct{}
@@ -82,4 +83,22 @@ func (r *repository) Delete(id int) error {
 		return fmt.Errorf("Producto %d no encontrado", id)
 	}
 	return nil
+}
+
+func (r *repository) Patch(id int, p domain.ProductPatch) (domain.Product, error) {
+	updated := false
+	result := domain.Product{}
+	for i := range productos {
+		if productos[i].ID == id {
+			result = productos[i]
+			result.Name = p.Name
+			result.Price = p.Price
+			productos[i] = result
+			updated = true
+		}
+	}
+	if !updated {
+		return domain.Product{}, fmt.Errorf("Producto %d no encontrado", id)
+	}
+	return result, nil
 }
