@@ -19,6 +19,15 @@ func NewProduct(p products.Service) *Product {
 		service: p,
 	}
 }
+
+// ListProducts godoc
+// @Summary List products
+// @Tags Products
+// @Description get products
+// @Accept json
+// @Produce json
+// @Success 200 {object} web.Response
+// @Router /Productos [get]
 func (c *Product) GetAll() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -26,6 +35,16 @@ func (c *Product) GetAll() gin.HandlerFunc {
 		ctx.JSON(200, web.NewResponse(200, p, ""))
 	}
 }
+
+// Products godoc
+// @Summary Get product by id
+// @Tags Products
+// @Description get product
+// @Accept json
+// @Produce json
+// @Param id path int true "Product ID"
+// @Success 200 {object} web.Response
+// @Router /Productos/{id} [get]
 func (c *Product) Get() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id, _ := strconv.Atoi(ctx.Param("id"))
@@ -34,6 +53,16 @@ func (c *Product) Get() gin.HandlerFunc {
 	}
 }
 
+// StoreProducts godoc
+// @Summary Store products
+// @Tags Products
+// @Description store products
+// @Accept json
+// @Produce json
+// @Param token header string true "token"
+// @Param product body domain.Product true "Product to store"
+// @Success 200 {object} web.Response
+// @Router /Productos [post]
 func (c *Product) Post() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//VALIDO TOKEN
@@ -60,6 +89,17 @@ func (c *Product) Post() gin.HandlerFunc {
 	}
 }
 
+// ModifyProducts godoc
+// @Summary Modify products
+// @Tags Products
+// @Description modify products
+// @Accept json
+// @Produce json
+// @Param id path int true "Product ID"
+// @Param token header string true "token"
+// @Param product body domain.Product true "Product to modify"
+// @Success 200 {object} web.Response
+// @Router /Productos/{id} [put]
 func (c *Product) Put() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//VALIDO TOKEN
@@ -93,6 +133,16 @@ func (c *Product) Put() gin.HandlerFunc {
 	}
 }
 
+// DeleteProducts godoc
+// @Summary Delete products
+// @Tags Products
+// @Description delete products
+// @Accept json
+// @Produce json
+// @Param id path int true "Product ID"
+// @Param token header string true "token"
+// @Success 200 {object} web.Response
+// @Router /Productos/{id} [delete]
 func (c *Product) Delete() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//VALIDO ID DEL HEADER
@@ -110,6 +160,17 @@ func (c *Product) Delete() gin.HandlerFunc {
 	}
 }
 
+// PatchProducts godoc
+// @Summary Patch products
+// @Tags Products
+// @Description patch products
+// @Accept json
+// @Produce json
+// @Param id path int true "Product ID"
+// @Param token header string true "token"
+// @Param product body domain.Product true "ProductPatch to patch"
+// @Success 200 {object} web.Response
+// @Router /Productos/{id} [patch]
 func (c *Product) Patch() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//VALIDO TOKEN

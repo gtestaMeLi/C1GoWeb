@@ -1,12 +1,5 @@
 [
  {
-  "id": 1,
-  "nombre": "Televisor LED",
-  "tipo": "pc",
-  "cantidad": 100,
-  "precio": 1580
- },
- {
   "id": 3,
   "nombre": "Monitor",
   "tipo": "monitor",
@@ -19,5 +12,12 @@
   "tipo": "tv",
   "cantidad": 180,
   "precio": 290
+ },
+ {
+  "id": 5,
+  "nombre": "Iphone",
+  "tipo": "mobile phone",
+  "cantidad": 10,
+  "precio": 1000
  }
 ]
