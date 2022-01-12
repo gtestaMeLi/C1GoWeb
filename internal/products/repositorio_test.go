@@ -12,6 +12,7 @@ type stubStore struct{}
 
 type mockStore struct {
 	readExecute bool
+	productList []domain.Product
 }
 
 func (s *stubStore) Read(data interface{}) error {
@@ -26,10 +27,8 @@ func (s *stubStore) Read(data interface{}) error {
 }
 
 func (s *mockStore) Read(data interface{}) error {
-	producto1 := domain.Product{1, "Before Product", "type1", 190, 1900}
-	producto2 := domain.Product{2, "P2", "type2", 190, 1900}
 
-	aux, _ := json.Marshal([]domain.Product{producto1, producto2})
+	aux, _ := json.Marshal(s.productList)
 
 	json.Unmarshal(aux, &data)
 	s.readExecute = true
@@ -37,7 +36,14 @@ func (s *mockStore) Read(data interface{}) error {
 }
 
 func (s *stubStore) Write(data interface{}) error { return nil }
-func (s *mockStore) Write(data interface{}) error { return nil }
+func (s *mockStore) Write(data interface{}) error {
+
+	s.productList = nil
+	fileData, _ := json.MarshalIndent(data, "", " ")
+	json.Unmarshal(fileData, &s.productList)
+	return nil
+
+}
 
 // func TestRead(t *testing.T) {
 // 	db := stubStore{}
@@ -57,7 +63,10 @@ func (s *mockStore) Write(data interface{}) error { return nil }
 // }
 
 func TestPatch(t *testing.T) {
-	db := mockStore{}
+	producto1 := domain.Product{1, "P1", "type1", 190, 1900}
+	producto2 := domain.Product{2, "P2", "type2", 190, 1900}
+	aux := []domain.Product{producto1, producto2}
+	db := mockStore{false, aux}
 	repo := NewRepository(&db)
 
 	//Resultado esperado
