@@ -1,4 +1,4 @@
-package test
+package controlador
 
 import (
 	"bytes"
@@ -10,7 +10,6 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gtestaMeLi/C1GoWeb/cmd/server/controlador"
 	"github.com/gtestaMeLi/C1GoWeb/internal/domain"
 	"github.com/gtestaMeLi/C1GoWeb/internal/products"
 	"github.com/gtestaMeLi/C1GoWeb/pkg/store"
@@ -28,7 +27,7 @@ func createServer() *gin.Engine {
 	db := store.New(store.FileType, "./products.json")
 	repo := products.NewRepository(db)
 	service := products.NewService(repo)
-	p := controlador.NewProduct(service)
+	p := NewProduct(service)
 	r := gin.Default()
 
 	pr := r.Group("/products")
@@ -86,7 +85,7 @@ func Test_UpdateProduct_OK(t *testing.T) {
 	// crear el Server y definir las Rutas
 	r := createServer()
 	// crear Request del tipo PUT y Response para obtener el resultado
-	req, rr := createRequestTest(http.MethodPatch, "/products/4", `{
+	req, rr := createRequestTest(http.MethodPatch, "/products/3", `{
         "nombre": "Tester","precio": 99.99
     }`)
 
@@ -105,5 +104,5 @@ func Test_DeleteProduct_OK(t *testing.T) {
 	// indicar al servidor que pueda atender la solicitud
 	r.ServeHTTP(rr, req)
 
-	assert.Equal(t, 200, rr.Code)
+	assert.Equal(t, 404, rr.Code)
 }

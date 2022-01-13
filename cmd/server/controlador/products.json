@@ -1,10 +1,10 @@
 [
  {
   "id": 3,
-  "nombre": "Monitor",
+  "nombre": "Tester",
   "tipo": "monitor",
   "cantidad": 10,
-  "precio": 5000
+  "precio": 99.99
  },
  {
   "id": 5,
@@ -57,13 +57,6 @@
  },
  {
   "id": 12,
-  "nombre": "Tester",
-  "tipo": "Funcional",
-  "cantidad": 10,
-  "precio": 99.99
- },
- {
-  "id": 13,
   "nombre": "Tester",
   "tipo": "Funcional",
   "cantidad": 10,
