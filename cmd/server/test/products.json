@@ -1,0 +1,72 @@
+[
+ {
+  "id": 3,
+  "nombre": "Monitor",
+  "tipo": "monitor",
+  "cantidad": 10,
+  "precio": 5000
+ },
+ {
+  "id": 5,
+  "nombre": "Iphone",
+  "tipo": "mobile phone",
+  "cantidad": 10,
+  "precio": 1000
+ },
+ {
+  "id": 6,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ },
+ {
+  "id": 7,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ },
+ {
+  "id": 8,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ },
+ {
+  "id": 9,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ },
+ {
+  "id": 10,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ },
+ {
+  "id": 11,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ },
+ {
+  "id": 12,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ },
+ {
+  "id": 13,
+  "nombre": "Tester",
+  "tipo": "Funcional",
+  "cantidad": 10,
+  "precio": 99.99
+ }
+]

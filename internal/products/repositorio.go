@@ -7,12 +7,6 @@ import (
 	"github.com/gtestaMeLi/C1GoWeb/pkg/store"
 )
 
-var p1 domain.Product = domain.Product{1, "Macbook", "pc", 100, 25000}
-var p2 domain.Product = domain.Product{2, "Teclado", "accesorios pc", 200, 150}
-var p3 domain.Product = domain.Product{3, "Monitor", "monitor", 10, 5000}
-
-//var productos []domain.Product = []domain.Product{p1, p2, p3}
-
 type Repository interface {
 	GetAll() []domain.Product
 	Get(id int) domain.Product
@@ -35,7 +29,10 @@ func NewRepository(db store.Store) Repository {
 func (r *repository) GetAll() []domain.Product {
 	var productos []domain.Product
 
-	r.db.Read(&productos)
+	err := r.db.Read(&productos)
+	if err != nil {
+		return nil
+	}
 
 	return productos
 }
@@ -44,7 +41,10 @@ func (r *repository) Get(id int) domain.Product {
 	resultado := domain.Product{}
 	//extraigo los datos del archivo
 	var productos []domain.Product
-	r.db.Read(&productos)
+	err := r.db.Read(&productos)
+	if err != nil {
+		return domain.Product{}
+	}
 	//lo busco
 	for _, value := range productos {
 		if id == value.ID {
@@ -58,9 +58,11 @@ func (r *repository) Get(id int) domain.Product {
 func (r *repository) Post(prod domain.Product) (domain.Product, error) {
 	//extraigo los datos del archivo
 	var productos []domain.Product
-	r.db.Read(&productos)
+	err := r.db.Read(&productos)
+	if err != nil {
+		return domain.Product{}, fmt.Errorf("Error al acceder a los productos")
+	}
 	prod.ID = productos[len(productos)-1].ID + 1
-	//productos = append(productos, prod)
 	productos = append(productos, prod)
 	if err := r.db.Write(productos); err != nil {
 		return domain.Product{}, err
@@ -76,7 +78,10 @@ func removeFromSlice(slice []domain.Product, s int) []domain.Product {
 func (r *repository) Put(id int, prod domain.Product) (res domain.Product, err error) {
 	//extraigo los datos del archivo
 	var productos []domain.Product
-	r.db.Read(&productos)
+	err = r.db.Read(&productos)
+	if err != nil {
+		return domain.Product{}, err
+	}
 	updated := false
 	for i := range productos {
 		if productos[i].ID == id {
@@ -99,7 +104,10 @@ func (r *repository) Delete(id int) error {
 	//extraigo los datos del archivo
 	var productos []domain.Product
 	var result []domain.Product
-	r.db.Read(&productos)
+	err := r.db.Read(&productos)
+	if err != nil {
+		return fmt.Errorf("Error al obtener los productos")
+	}
 	copy(result, productos)
 	founded := false
 	for i := range productos {
@@ -121,7 +129,10 @@ func (r *repository) Delete(id int) error {
 func (r *repository) Patch(id int, p domain.ProductPatch) (domain.Product, error) {
 	//extraigo los datos del archivo
 	var productos []domain.Product
-	r.db.Read(&productos)
+	err := r.db.Read(&productos)
+	if err != nil {
+		return domain.Product{}, fmt.Errorf("Error al obtener los productos")
+	}
 	updated := false
 	result := domain.Product{}
 	for i := range productos {

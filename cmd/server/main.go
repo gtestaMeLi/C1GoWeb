@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -44,5 +45,8 @@ func main() {
 		pr.PATCH("/:id", p.Patch())
 	}
 
-	r.Run()
+	err := r.Run()
+	if err != nil {
+		fmt.Println("No se pudo iniciar el programa")
+	}
 }
